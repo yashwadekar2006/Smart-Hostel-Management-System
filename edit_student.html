@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Student - Smart Hostel</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .edit-form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .edit-form label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .edit-form input {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        .edit-form button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            width: fit-content;
+            cursor: pointer;
+        }
+
+        .cancel-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 25px;
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- Header -->
+    <header class="dashboard-header">
+        <h1>Edit Student</h1>
+        <p>Update Student Information</p>
+    </header>
+
+
+    <!-- Edit Student -->
+    <div class="card">
+
+        <h2>Update Student Information</h2>
+
+        <form
+            action="/update_student/{{ student.id }}"
+            method="POST"
+            class="edit-form"
+        >
+
+            <!-- Student Name -->
+            <label for="name">
+                Student Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value="{{ student.name }}"
+                required
+            >
+
+
+            <!-- Email -->
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ student.email }}"
+                required
+            >
+
+
+            <!-- Phone -->
+            <label for="phone">
+                Phone
+            </label>
+
+            <input
+                type="text"
+                id="phone"
+                name="phone"
+                value="{{ student.phone or '' }}"
+            >
+
+
+            <!-- Room Number -->
+            <label for="room_number">
+                Room Number
+            </label>
+
+            <input
+                type="text"
+                id="room_number"
+                name="room_number"
+                value="{{ student.room_number or '' }}"
+            >
+
+
+            <!-- Update Button -->
+            <button type="submit">
+                Update Student
+            </button>
+
+        </form>
+
+
+        <!-- Cancel -->
+        <a href="/students" class="cancel-button">
+            Cancel
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Leave Requests - Smart Hostel</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .leave-container {
+            width: 95%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .leave-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-sizing: border-box;
+        }
+
+        .leave-card h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .leave-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 700px;
+        }
+
+        .leave-form label {
+            margin-top: 12px;
+            margin-bottom: 7px;
+            font-weight: 600;
+        }
+
+        .leave-form input,
+        .leave-form textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        .leave-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            width: fit-content;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .leave-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leave-table th,
+        .leave-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .leave-table th {
+            font-weight: bold;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-top: 5px;
+            padding: 10px 20px;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <header class="dashboard-header">
+
+        <h1>Leave Requests</h1>
+
+        <p>Submit and Manage Student Leave Requests</p>
+
+    </header>
+
+
+    <div class="leave-container">
+
+
+        <!-- Submit Leave Request -->
+
+        <div class="leave-card">
+
+            <h2>Submit Leave Request</h2>
+
+            <form
+                action="/submit_leave_request"
+                method="POST"
+                class="leave-form"
+                id="leaveForm"
+            >
+
+                <label for="student_name">
+                    Student Name
+                </label>
+
+                <input
+                    type="text"
+                    id="student_name"
+                    name="student_name"
+                    placeholder="Enter student name"
+                    required
+                >
+
+
+                <label for="request_text">
+                    Leave Request / Issue
+                </label>
+
+                <textarea
+                    id="request_text"
+                    name="request_text"
+                    placeholder="Type your leave request or issue here..."
+                    required
+                ></textarea>
+
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+                    Submit Request
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Leave Request List -->
+
+        <div class="leave-card">
+
+            <h2>Student Leave Requests</h2>
+
+            <div class="table-container">
+
+                <table class="leave-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>ID</th>
+                            <th>Student Name</th>
+                            <th>Leave Request / Issue</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for request in requests %}
+
+                        <tr>
+
+                            <td>
+                                {{ request.id }}
+                            </td>
+
+                            <td>
+                                {{ request.name }}
+                            </td>
+
+                            <td>
+                                {{ request.request_text }}
+                            </td>
+
+                        </tr>
+
+                        {% else %}
+
+                        <tr>
+
+                            <td colspan="3">
+                                No leave requests found.
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <a href="/" class="back-button">
+            Back to Login
+        </a>
+
+
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+
+</html>
