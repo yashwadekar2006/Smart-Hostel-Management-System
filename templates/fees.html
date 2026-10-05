@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fees Management - Smart Hostel</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        /* Main fee card */
+        .fee-card {
+            width: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        /* Fee table */
+        .fee-table {
+            width: 100%;
+            max-width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            table-layout: fixed;
+        }
+
+        .fee-table th,
+        .fee-table td {
+            border: 1px solid #ddd;
+            padding: 12px 10px;
+            text-align: left;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .fee-table th {
+            font-weight: bold;
+        }
+
+        /* Column widths */
+        .fee-table th:nth-child(1),
+        .fee-table td:nth-child(1) {
+            width: 25%;
+        }
+
+        .fee-table th:nth-child(2),
+        .fee-table td:nth-child(2) {
+            width: 18%;
+        }
+
+        .fee-table th:nth-child(3),
+        .fee-table td:nth-child(3) {
+            width: 17%;
+        }
+
+        .fee-table th:nth-child(4),
+        .fee-table td:nth-child(4) {
+            width: 17%;
+        }
+
+        .fee-table th:nth-child(5),
+        .fee-table td:nth-child(5) {
+            width: 23%;
+        }
+
+        .paid {
+            color: green;
+            font-weight: bold;
+        }
+
+        .pending {
+            color: red;
+            font-weight: bold;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 18px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        .edit-button {
+            padding: 7px 14px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        /* Mobile / small screen */
+        @media (max-width: 700px) {
+
+            .fee-table th,
+            .fee-table td {
+                padding: 8px 6px;
+                font-size: 14px;
+            }
+
+            .edit-button {
+                padding: 6px 8px;
+                font-size: 13px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <header class="dashboard-header">
+        <h1>Fees Management</h1>
+        <p>Manage Student Fees</p>
+    </header>
+
+
+    <div class="card fee-card">
+
+        <h2>Fee Records</h2>
+
+        <a href="/add_fee" class="button">
+            Add Fee
+        </a>
+
+
+        <table class="fee-table">
+
+            <thead>
+
+                <tr>
+                    <th>Student Name</th>
+                    <th>Room</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for fee in fees %}
+
+                <tr>
+
+                    <td>{{ fee.name }}</td>
+
+                    <td>{{ fee.room_number }}</td>
+
+                    <td>₹{{ fee.amount }}</td>
+
+                    <td>
+
+                        {% if fee.status == "Paid" %}
+
+                            <span class="paid">Paid</span>
+
+                        {% else %}
+
+                            <span class="pending">Pending</span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <a href="/edit_fee/{{ fee.id }}"
+                           class="edit-button">
+                            Edit
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% else %}
+
+                <tr>
+
+                    <td colspan="5">
+                        No fee records found.
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
